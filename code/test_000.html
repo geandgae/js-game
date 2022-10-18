@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>TEST</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="stylesheet" href="./common.css" />
+  </head>
+
+  <body class="body">
+    <div class="test-box">A</div>
+    <!-- wrap -->
+    <div id="wrap">
+      <!-- view-wrap -->
+      <div class="view-wrap turn_user">
+        <div class="user active">
+          <span class="hp"></span>
+          <span class="st"></span>
+        </div>
+        <div class="mob">
+          <span class="hp"></span>
+          <span class="st"></span>
+        </div>
+        <div class="dmg-box">
+          <span class="damage"></span>
+          <span class="miss"></span>
+          <span class="counter"></span>
+        </div>
+      </div>
+      <!-- //view-wrap -->
+
+      <!-- log-wrap -->
+      <div class="log-wrap">
+        <div class="log"></div>
+      </div>
+      <!-- //log-wrap -->
+
+      <!-- ctrl-wrap -->
+      <div class="ctrl-wrap">
+        <div class="flex">
+          <button class="hit active" type="button" onclick="start();">user hit</button>
+          <button class="hita" type="button" onclick="hitbox(user , mob);">hit_a</button>
+          <button class="hitb" type="button" onclick="hitbox(mob , user);">hit_b</button>
+        </div>
+        <div class="flex">
+          <button class="btn" type="button" onclick="weapon(user_equipment , weapon_list.a_01);">wp_01</button>
+          <button class="btn" type="button" onclick="weapon(user_equipment , weapon_list.a_02);">wp_02</button>
+          <button class="btn" type="button" onclick="console_test();">test</button>
+          <button class="btn" type="button" onclick="console_test2();">test2</button>
+          <button class="btn" type="button" onclick="console_test3();">test3</button>
+        </div>
+        <div class="flex">
+          <button class="btn-test" type="button" onclick="hitbox(user , mob);">hitbox</button>
+          <button class="btn-test" type="button" onclick="counter(user , mob);">miss</button>
+          <button class="btn-test" type="button" onclick="block(user , mob);">block</button>
+          <button class="btn-test" type="button" onclick="dodge(user , mob);">dodge</button>
+          <button class="btn-test" type="button" onclick="damage(user , mob);">damage</button>
+          <button class="btn-test" type="button" onclick="buff(user , mob);">buff</button>
+        </div>
+        <div class="flex">
+          <button class="btn clear" type="button" onclick="console.clear();">console.clear</button>
+          <button class="btn clear" type="button" onclick="location.reload();">reload</button>
+        </div>
+
+        <div class="flex">
+          <button class="btn clear" type="button" onclick="testindex(2);">testindex</button>
+          <button class="btn clear" type="button" onclick="aaa(1);">Logger</button>
+          <button class="btn trg" type="button">trg</button>
+          <button class="btn trg2" type="button">trg2</button>
+        </div>
+
+        <div class="flex">
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+          <button class="btn tab" type="button">tab</button>
+        </div>
+      </div>
+      <!-- //ctrl-wrap -->
+    </div>
+    <!-- //wrap -->
+    
+    <!-- layer -->
+    <div class="layer">
+      <div class="status">
+        <span class="st-name"></span>
+        <span class="st-hp"></span>
+        <span class="st-hit"></span>
+        <span class="st-attack"></span>
+        <span class="st-defense"></span>
+      </div>
+    </div>
+    <!-- //layer -->
+  </body>
+  <script src="./common.js"></script>
+  <script src="./gametypes.js"></script>
+
+  <script>
+    console.log(kinds);
+    console.log(Types);
+
+    test_arr = ["a0", "a1", "a2", "a3", "a4"];
+
+    function testindex(num) {
+      // return test_arr.indexOf("a0", weaponKind);
+      console.log(test_arr.indexOf("a1", num));
+      // console.log(112)
+    }
+
+    let aaa = function (level) {
+      this.level = level;
+      console.log(this);
+      // console.log(this.level);
+      // console.log(level);
+    };
+    aaa(10);
+
+    function bbb(lev) {
+      console.log(this);
+    }
+    bbb(11);
+
+    let Obj = {
+      name: "kim",
+      say: function () {
+        console.log(this);
+      },
+    };
+    Obj.say();
+
+    let Obj2 = {
+      name: "lee",
+      data: {
+        name_data: "data2",
+        say: function () {
+          console.log(this);
+        },
+      },
+    };
+    Obj2.data.say();
+
+    function MakeCon() {
+      this.name = "kim";
+    }
+    let Obj3 = new MakeCon();
+    console.log(Obj3);
+
+    let Obj4 = {
+      name: ["kim", "park", "Lee"],
+      say: function () {
+        Obj4.name.forEach(function () {
+          console.log(this);
+        });
+      },
+    };
+    Obj4.say();
+
+    document.querySelector(".trg").addEventListener("click", function (e) {
+      console.log(this); // this == e.currentTarget
+    });
+
+    document.querySelector(".trg2").addEventListener("click", function (e) {
+      let arr = [1, 2, 3];
+      // arr.forEach(function () {
+      //   console.log(this);
+      // });
+
+      arr.forEach(() => {
+        console.log(this);
+      });
+      // arr.forEach( a => console.log(this))
+    });
+
+    // 클로져 사용
+    function tabsHandler(index) {
+      return function tabClickEvent(event) {
+        // 바깥 함수인 tabsHandler() 의 index 인자를 여기서 접근할 수 있다.
+        console.log(index); // 탭을 클릭할 때 마다 해당 탭의 index 값을 표시
+      };
+    }
+
+    var tabs = document.querySelectorAll(".tab");
+    var i;
+
+    for (i = 0; i < tabs.length; i += 1) {
+      tabs[i].onclick = tabsHandler(i);
+    }
+
+    // 클로져 사용 안 함
+    // var tabs = document.querySelectorAll(".tab");
+    // var i;
+
+    // for (i = 0; i < tabs.length; i += 1) {
+    //   tabs[i].onclick = function (event) {
+    //     console.log(i); // 어느 탭을 클릭해도 항상 tabs.length (i 의 최종 값) 이 출력
+    //   };
+    // }
+
+    // var tabs = document.querySelectorAll(".tab");
+    // var i;
+    // var logIndex = function (event) {
+    //   console.log(i); // 3
+    // };
+
+    // for (i = 0; i < tabs.length; i += 1) {
+    //   tabs[i].onclick = logIndex;
+    // }
+
+    // let request = "햄버거";
+
+    // function order(request, callback) {
+    //   console.log(`${request} 주문이 접수되었습니다.`);
+    //   setTimeout(() => callback(request), 3000);
+    // }
+    // // callback으로 비동기 함수 전달
+    // order(request, (response) => {
+    //   console.log(`주문하신 ${response} 나왔습니다.`);
+    // });
+
+    // Promise 기본 패턴 1 : 성공인 경우
+    // function fn() {
+    //   new Promise((resolve, reject) => {
+    //     console.log("하나");
+    //     // 실패인 경우 reject() 함수를 호출하면 된다.
+    //     // 그러면 then()을 건너뛰고 catch()가 실행된다.
+    //     resolve();
+    //   })
+    //   .then(() => {
+    //     return new Promise((resolve, reject) => {
+    //       setTimeout(() => {
+    //         console.log("둘");
+    //         resolve();
+    //       }, 0);
+    //     });
+    //   })
+    //   .then(() => {
+    //     console.log("셋");
+    //   })
+    //   .catch((err) => {
+    //     console.log("err ", err);
+    //   });
+    // }
+
+    // Promise 기본 패턴 2 : 성공인 경우
+    // 중요 포인트 : fn() 함수 안에서 Promise를 반환하였다.
+    // function fn() {
+    //   return new Promise((resolve, reject) => resolve());
+    // }
+    // // Promise를 반환했기 때문에 number 변수도 Promise 타입이다.
+    // const number = fn();
+    // number
+    // .then((p) => {
+    //   console.log(p);
+    //   console.log("하나");
+    // })
+    // .then(() => {
+    //   new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log("둘");
+    //       resolve();
+    //     }, 0);
+    //   });
+    // })
+    // .then(() => {
+    //   console.log("셋");
+    // })
+    // .catch((err) => {
+    //   console.log("err", err);
+    // });
+
+    // Promise 패턴 3 : 데이터 전달하기
+    // 중요 포인트 1. 데이터를 resolve()에 인자로 넣어 then 으로 전달할 수 있다.
+    // 중요 포인트 2. then에서 다음 then으로 데이터를 전달하기 위해서는 반드시 리턴값으로 전달해야한다.
+    // function fn() {
+    //   new Promise((resolve, reject) => {
+    //     resolve('하나');
+    //   })
+    //   .then((data) => {
+    //     return new Promise((resolve, reject) => {
+    //       setTimeout(() => {
+    //         resolve(data + '둘');
+    //       }, 0);
+    //     })
+    //   })
+    //   .then((data) => {
+    //     return data + '셋'
+    //   })
+    //   .then((data) => {
+    //     console.log(data + '넷');
+    //   })
+    //   .catch((err) => {
+    //     console.log('err ', err);
+    //   });
+    // }
+
+    // '하나둘셋넷' 텍스트 이어서 출력하기
+    // 중요 포인트 1 : return을 하지 않았어도 자동으로 fn함수는 Promise를 return 한다.
+    // 중요 포인트 2 : await을 붙이 Promise는 Promise를 리턴하지 않는다. (resole에 인자로 전달한 데이터를 리턴한다.)
+    async function fn() {
+      let text = '하나';
+      text = text + await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('둘');
+        }, 0);
+      });
+      text += '셋';
+      console.log(text + '넷');
+    }
+
+    // fn();
+  </script>
+</html>
