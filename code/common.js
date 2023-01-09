@@ -254,10 +254,17 @@ function status() {
 
 // log_box
 function log_box() {
+  let log_wrap = document.querySelector(".log-wrap");
+  let log_wrap_h = log_wrap.scrollHeight;
   let log_line = document.createElement("p");
   let text = document.createTextNode(log_text);
   log_line.appendChild(text);
   log_view.appendChild(log_line);
+  console.log(log_wrap_h)
+  log_wrap.scrollTo({
+    top: log_wrap_h,
+    behavior: 'smooth'
+  })
   // log_view.scrollTo({
   //   top: 0,
   //   left: 100,

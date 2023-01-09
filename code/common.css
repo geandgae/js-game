@@ -213,7 +213,8 @@ button {
 }
 .log {
   display: flex;
-  flex-direction: column-reverse;
+  /* flex-direction: column-reverse; */
+  flex-direction: column;
 }
 .log p {
   font-size: 11px;
