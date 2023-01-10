@@ -1,35 +1,35 @@
+"use strict";
 // import
 // import * as name from './type.js';
 
 // start
-(function () {
-  "use strict";
+// (function () {
   
-  // 키보드 이벤트 - 임시
-  document.addEventListener("keydown", function (e) {
-    const keyCode = e.keyCode;
-    console.log("pushed key " + e.key);
-    if (keyCode == 65) {
-      // c key
-      // document.dispatchEvent(new KeyboardEvent('keydown', {key: 'e'}));
-      status();
-      // document.dispatchEvent(new KeyboardEvent('keyup', {key: 'e'}));
-    }
-    // if (keyCode == 65) {
-    //   hitbox(user , mob); // a
-    // }
-    // if (keyCode == 83) {
-    //   hitbox(mob , user); // s
-    // }
-    // if(keyCode == 13){ // Enter key
-    //   document.dispatchEvent(new KeyboardEvent('keydown', {key: 'e'}));
-    //   // document.dispatchEvent(new KeyboardEvent('keyup', {key: 'e'}));
-    // } else if(keyCode == 9){ // Tab key
-    //   document.dispatchEvent(new KeyboardEvent('keydown', {key: 't'}));
-    //   // document.dispatchEvent(new KeyboardEvent('keyup', {key: 't'}));
-    // }
-  });
-})();
+//   // 키보드 이벤트 - 임시
+//   document.addEventListener("keydown", function (e) {
+//     const keyCode = e.keyCode;
+//     console.log("pushed key " + e.key);
+//     if (keyCode == 65) {
+//       // c key
+//       // document.dispatchEvent(new KeyboardEvent('keydown', {key: 'e'}));
+//       view_status();
+//       // document.dispatchEvent(new KeyboardEvent('keyup', {key: 'e'}));
+//     }
+//     // if (keyCode == 65) {
+//     //   hitbox(user , mob); // a
+//     // }
+//     // if (keyCode == 83) {
+//     //   hitbox(mob , user); // s
+//     // }
+//     // if(keyCode == 13){ // Enter key
+//     //   document.dispatchEvent(new KeyboardEvent('keydown', {key: 'e'}));
+//     //   // document.dispatchEvent(new KeyboardEvent('keyup', {key: 'e'}));
+//     // } else if(keyCode == 9){ // Tab key
+//     //   document.dispatchEvent(new KeyboardEvent('keydown', {key: 't'}));
+//     //   // document.dispatchEvent(new KeyboardEvent('keyup', {key: 't'}));
+//     // }
+//   });
+// })();
 
 
 // =========== 변수 ===========
@@ -231,7 +231,7 @@ let stat_view_attack = document.querySelector(".status .st-attack");
 let stat_view_defense = document.querySelector(".status .st-defense");
 
 // status
-function status() {
+function view_status() {
   // console.log("user-hp : " + user.hp);
   // console.log("user-attack  : " + user.attack);
   // console.log("user-hit  : " + user.hit);
@@ -251,6 +251,279 @@ function status() {
 
   stat_view.classList.toggle("active");
 }
+// 키보드 이벤트 - 임시
+const keyTab = (e) => {
+  if (e.keyCode === 9) {
+    if (e.shiftKey) {
+      if (document.activeElement === tabFirst) {
+        // e.preventDefault();
+        tabLast.focus();
+      }
+    } else {
+      if (document.activeElement === tabLast) {
+        // e.preventDefault();
+        tabFirst.focus();
+      }
+    }
+  }
+}
+
+// move
+let keys = [];
+let keypress;
+let ex_world = document.querySelector(".space");
+let unit = document.querySelector(".player");
+let speed = 1;
+let speedX = 0;
+let speedY = 0;
+function player_move(d) {
+  
+  // console.log(keypress);
+  // console.log(d);
+  // if (d === "ArrowRight") {
+  //   // console.log("right");
+  //   if (speedX < 790) {
+  //     speedX += speed;
+  //     unit.style.left = `${speedX}px`;
+  //   }
+  // }
+  // if (d === "ArrowLeft") {
+  //   // console.log("left");
+  //   if (speedX > 0) {
+  //     speedX -= speed;
+  //     unit.style.left = `${speedX}px`;
+  //   }
+  // }
+  // if (d === "ArrowUp") {
+  //   // console.log("up");
+  //   if (speedY > 0) {
+  //     speedY -= speed;
+  //     unit.style.top = `${speedY}px`;
+  //   }
+  // }
+  // if (d === "ArrowDown") {
+  //   // console.log("down");
+  //   if (speedY < 90) {
+  //     speedY += speed;
+  //     unit.style.top = `${speedY}px`;
+  //   }
+  // }
+  // setInterval(() => {
+  //   if (keys.ArrowRight === true || keys.ArrowLeft === true || keys.ArrowDown === true || keys.ArrowUp === true) {
+  //     console.log("X : " + speedX);
+  //     console.log("Y : " + speedY);
+  //     if (keypress === "ArrowRight" || keypress === "d") {
+  //       // console.log("right");
+  //       if (speedX < 290) {
+  //         speedX += speed;
+  //       }
+  //     }
+  //     if (keypress === "ArrowLeft" || keypress === "a") {
+  //       // console.log("left");
+  //       if (speedX > 0) {
+  //         speedX -= speed;
+  //       }
+  //     }
+  //     if (keypress === "ArrowDown" || keypress === "s") {
+  //       // console.log("down");
+  //       if (speedY < 90) {
+  //         speedY += speed;
+  //       }
+  //     }
+  //     if (keypress === "ArrowUp" || keypress === "w") {
+  //       // console.log("up");
+  //       if (speedY > 0) {
+  //         speedY -= speed;
+  //       }
+  //     }
+  //     // if (keys.ArrowRight === true && keys.ArrowDown === true) {
+  //     //   if (speedY < 90) {
+  //     //     speedY += speed;
+  //     //   }
+  //     //   if (speedX < 290) {
+  //     //     speedX += speed;
+  //     //   }
+  //     // }
+  //     // if (keys.ArrowLeft === true && keys.ArrowDown === true) {
+  //     //   if (speedY < 90) {
+  //     //     speedY += speed;
+  //     //   }
+  //     //   if (speedX > 0) {
+  //     //     speedX -= speed;
+  //     //   }
+  //     // }
+  //     // if (keys.ArrowRight === true && keys.ArrowUp === true) {
+  //     //   if (speedY > 0) {
+  //     //     speedY -= speed;
+  //     //   }
+  //     //   if (speedX < 290) {
+  //     //     speedX += speed;
+  //     //   }
+  //     // }
+  //     // if (keys.ArrowLeft === true && keys.ArrowUp === true) {
+  //     //   if (speedY > 0) {
+  //     //     speedY -= speed;
+  //     //   }
+  //     //   if (speedX > 0) {
+  //     //     speedX -= speed;
+  //     //   }
+  //     // }
+      
+  //     unit.style.top = `${speedY}px`;
+  //     unit.style.left = `${speedX}px`;
+  //   }
+  // }, 1);
+
+  setInterval(() => {
+    if (keypress) {
+      console.log("X : " + speedX);
+      console.log("Y : " + speedY);
+      if (keypress === "ArrowRight" || keypress === "d") {
+        // console.log("right");
+        if (speedX < 290) {
+          speedX += speed;
+        }
+      }
+      if (keypress === "ArrowLeft" || keypress === "a") {
+        // console.log("left");
+        if (speedX > 0) {
+          speedX -= speed;
+        }
+      }
+      if (keypress === "ArrowDown" || keypress === "s") {
+        // console.log("down");
+        if (speedY < 90) {
+          speedY += speed;
+        }
+      }
+      if (keypress === "ArrowUp" || keypress === "w") {
+        // console.log("up");
+        if (speedY > 0) {
+          speedY -= speed;
+        }
+      }
+      // if (keys.ArrowRight === true && keys.ArrowDown === true) {
+      //   if (speedY < 90) {
+      //     speedY += speed;
+      //   }
+      //   if (speedX < 290) {
+      //     speedX += speed;
+      //   }
+      // }
+      // if (keys.ArrowLeft === true && keys.ArrowDown === true) {
+      //   if (speedY < 90) {
+      //     speedY += speed;
+      //   }
+      //   if (speedX > 0) {
+      //     speedX -= speed;
+      //   }
+      // }
+      // if (keys.ArrowRight === true && keys.ArrowUp === true) {
+      //   if (speedY > 0) {
+      //     speedY -= speed;
+      //   }
+      //   if (speedX < 290) {
+      //     speedX += speed;
+      //   }
+      // }
+      // if (keys.ArrowLeft === true && keys.ArrowUp === true) {
+      //   if (speedY > 0) {
+      //     speedY -= speed;
+      //   }
+      //   if (speedX > 0) {
+      //     speedX -= speed;
+      //   }
+      // }
+      
+      unit.style.top = `${speedY}px`;
+      unit.style.left = `${speedX}px`;
+    }
+  }, 10);
+
+}
+// player_move();
+setInterval(() => {
+  if (keys.ArrowRight === true) {
+    // console.log("right");
+    if (speedX < 290) {
+      speedX += speed;
+    }
+  }
+  if (keys.ArrowLeft === true) {
+    // console.log("left");
+    if (speedX > 0) {
+      speedX -= speed;
+    }
+  }
+  if (keys.ArrowDown === true) {
+    // console.log("down");
+    if (speedY < 90) {
+      speedY += speed;
+    }
+  }
+  if (keys.ArrowUp === true) {
+    // console.log("up");
+    if (speedY > 0) {
+      speedY -= speed;
+    }
+  }
+  unit.style.top = `${speedY}px`;
+  unit.style.left = `${speedX}px`;
+}, 10);
+
+document.addEventListener("keydown", function (e) {
+  console.log("X : " + speedX);
+  console.log("Y : " + speedY);
+  keys[e.key] = true;
+  console.log(keys);
+  // console.log("pushed key " + e.key);
+  if (e.key === "c") {
+    console.log("pushed key " + e.key);
+    view_status();
+  }
+});
+
+
+document.addEventListener("keyup", function (e) {
+  keypress = false;
+  keys[e.key] = false;
+});
+
+// test
+// window.addEventListener("keydown", keysPressed, false);
+// window.addEventListener("keyup", keysReleased, false);
+// function keysPressed(e) {
+//   keypress = e.key;
+//   // console.log("pushed key " + e.key);
+//   if (e.key === "c") {
+//     console.log("pushed key " + e.key);
+//     view_status();
+//   }
+// 	// store an entry for every key pressed
+// 	keys[e.key] = true;
+//   console.log(keys);
+	
+// 	// // Ctrl + Shift + 5
+// 	// if (keys[17] && keys[16] && keys[53]) {
+// 	// 	// do something
+// 	// }
+	
+// 	// // Ctrl + f
+// 	// if (keys[17] && keys[70]) {
+// 	// 	// do something
+	
+// 	// 	// prevent default browser behavior
+// 	// 	e.preventDefault();	
+// 	// }
+// }
+// function keysReleased(e) {
+// 	// mark keys that were released
+// 	keys[e.key] = false;
+//   console.log(keys);
+// }
+// test
+
+
 
 // log_box
 function log_box() {

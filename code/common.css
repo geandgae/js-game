@@ -269,3 +269,20 @@ button {
 .layer.active {
   display: block;
 }
+
+.space {
+  position: relative;
+  margin-top: 20px;
+  width: 300px;
+  height: 100px;
+  border: 1px solid #000;
+}
+.space .player {
+  width: 10px;
+  height: 10px;
+  display: block;
+  background-color: #ff0000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
