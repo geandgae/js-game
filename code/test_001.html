@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>TEST2</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="stylesheet" href="./common.css" />
+  </head>
+
+  <body>
+
+    <canvas class="canvas" id="canvas" width="800" height="800">
+
+    </canvas>
+    
+  </body>
+
+
+  <script>
+    let fps = 30;
+    let canvasElement = document.querySelector('.canvas');
+    let gameContext = canvasElement.getContext('2d');
+    let character;         
+    let asset;  
+    let speed = 10;
+
+    function Character(asset, x, y, canvasElement){ 
+      this.canvasSize = {
+        width: canvasElement.width,
+        height: canvasElement.height
+      };
+      // this.canvasContext = canvasElement.getContext('2d');
+
+      console.log(this.canvasSize);
+  
+      this.asset = asset;
+      this.position = {x: x, y: y}; 
+  
+      this.drawCharacter = function(){  
+        // this.gameContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);    
+        // this.canvasContext.drawImage(asset, 0, 0, 10, 10);  
+      }
+    }
+  
+    function init(){
+      // canvasElement = document.querySelector('.canvas');
+      gameContext.rect(20,20,300,300);
+      gameContext.stroke();
+      console.log(canvasElement);
+      
+      
+      asset = new Image(); 
+      asset.src = 'ex.png';        
+      asset.onload = onAssetLoadComplete;      
+    }
+    
+  
+    function onAssetLoadComplete(){
+      console.log(asset)
+      // let frameCounter = new FrameCounter();
+      // character = new Character(asset, 200, 200, canvasElement);
+      // character.drawCharacter();
+      gameContext.drawImage (asset,50,50,100,100)
+    }
+  
+    
+  
+    function onKeyDown(e){ 
+      if(e.keyCode == 37){                //left
+        character.position.x -= speed;
+      }
+    
+      if(e.keyCode == 38){                //up
+        character.position.y -= speed;
+      }
+    
+      if(e.keyCode == 39){                //right
+        character.position.x += speed;
+      }
+      if(e.keyCode == 40){                //down
+        character.position.y += speed;
+      }
+        
+      character.drawCharacter();
+    }
+  
+    window.addEventListener("load", init, false);
+    window.addEventListener("keydown", onKeyDown, false);
+  </script>
+
+</html>
